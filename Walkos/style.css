@@ -14,3 +14,6 @@
     background-color: #4CAF50; /* Green */
     color: white;
 }
+body {
+    background-image: url("tlo.png");
+}
