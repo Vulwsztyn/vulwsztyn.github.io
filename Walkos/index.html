@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Walkoś symulator 2018</title>
+</head>
+<body>
+<p id="cur"></p>
+<p id="max"></p>
+<p id="sek"> </p>
+
+<button class="button" onclick="onClick(0,1,0)">Ujeb studenta</button>
+<table>
+    <tr>
+        <td><button class="button" onclick="onClick(10,0,1)">Podnieś progi o 1%<br>Koszt: 10<br>+1/sek</button></td>
+        <td><button class="button" onclick="onClick(50,0,6)">Czasami lepiej studenta nie przepuścić, to dla jego dobra, żeby się nie męczył<br>Koszt: 50<br>+6/sek</button></td>
+        <td><button class="button" onclick="onClick(150,0,20)">Brakuje komuś 0.003pkt do zdania? Każ powtarzać całe kolokwium<br>Koszt: 150<br>+20/sek</button></td>
+        <td><button class="button" onclick="onClick(1000,0,150)">Odwołaj zajęcia i każ przerobić w domu<br>Koszt: 1000<br>+150/sek</button></td>
+    </tr>
+
+</table>
+</body>
+<script>
+    function onClick(a,i,j) {
+        if(a<=posiadane){
+            posiadane-=a;
+            increase(i,j);
+        }
+        update();
+    }
+    function increase( i, j){
+        posiadane+=i;
+        lacznie+=i;
+        naSek+=j;
+    }
+    function update() {
+        document.getElementById("cur").innerHTML="Niesporzytkowane zasoby ujebanych studentów: "+posiadane;
+        document.getElementById("max").innerHTML="Ujebani łącznie: "+lacznie;
+        document.getElementById("sek").innerHTML="Ujebywani na seknude: "+naSek;
+    }
+
+    var posiadane=0;
+    var lacznie=0;
+    var naSek=0;
+    update();
+
+    var sekundnik = setInterval(myTimer, 1000);
+
+    function myTimer() {
+        posiadane+=naSek;
+        lacznie+=naSek;
+        update();
+    }
+
+</script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</html>
