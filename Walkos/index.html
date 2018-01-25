@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Walkoś symulator 2018</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
+<html>
+<title>Walkoś symulator 2018</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
-<div class="w3-white w3-center w3-round-xxlarge  w3-panel w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-border-green w3-pale-green" style="width:600px; margin:auto">
-<p id="cur"></p>
-<p id="max"></p>
-<p id="sek"> </p>
+
+<div class="w3-white w3-center w3-round-xxlarge  w3-panel w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-border-green" style="max-width:600px;width:100%; margin:auto">
+    <p id="cur"></p>
+    <p id="max"></p>
+    <p id="sek"> </p>
     <button class="button" onclick="onClick(0,1,0)">Ujeb studenta</button>
 </div>
-<div class="w3-row">
-    <div class=" w3-container w3-quarter">
+
+<div class="w3-row ">
+    <div class="  w3-quarter">
         <button class="button" onclick="onClick(10,0,1)">Podnieś progi o 1%<br>Koszt: 10<br>+1/sek</button>
     </div>
-    <div class="w3-container w3-quarter">
+    <div class=" w3-quarter">
         <button class="button" onclick="onClick(50,0,6)">Czasami lepiej studenta nie przepuścić, to dla jego dobra, żeby się nie męczył<br>Koszt: 50<br>+6/sek</button>
     </div>
-    <div class="w3-container w3-quarter">
+    <div class=" w3-quarter">
         <button class="button" onclick="onClick(150,0,20)">Brakuje komuś 0.003pkt do zdania? Każ powtarzać całe kolokwium<br>Koszt: 150<br>+20/sek</button>
     </div>
-    <div class="w3-container w3-quarter">
+    <div class=" w3-quarter">
         <button class="button" onclick="onClick(1000,0,150)">Odwołaj zajęcia i każ przerobić w domu<br>Koszt: 1000<br>+150/sek</button>
     </div>
 </div>
+
+
+
 </body>
 <script>
     function onClick(a,i,j) {
@@ -60,5 +66,4 @@
     }
 
 </script>
-<link rel="stylesheet" type="text/css" href="style.css">
 </html>
