@@ -9,53 +9,144 @@
 <body>
 
 <div class="w3-white w3-center w3-round-xxlarge  w3-panel w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-border-green" style="max-width:600px;width:100%; margin:auto">
+    <p id="prog"></p>
     <p id="cur"></p>
     <p id="max"></p>
     <p id="sek"> </p>
-    <button class="button" onclick="onClick(0,1,0)">Ujeb studenta</button>
+    <button id="ujeb" class="button" onclick="ujeb()"></button>
 </div>
-
+<div style="opacity:0.9" >
+<div class="w3-row " >
+    <div class="  w3-quarter">
+        <button id="g0" class="button" onclick="onClick(0)"></button>
+    </div>
+    <div class=" w3-quarter">
+        <button id="g1" class="button" onclick="onClick(1)"></button>
+    </div>
+    <div class=" w3-quarter">
+        <button id="g2" class="button" onclick="onClick(2)"></button>
+    </div>
+    <div class=" w3-quarter">
+        <button id="g3" class="button" onclick="onClick(3)"></button>
+    </div>
+</div>
 <div class="w3-row ">
     <div class="  w3-quarter">
-        <button class="button" onclick="onClick(10,0,1)">Podnieś progi o 1%<br>Koszt: 10<br>+1/sek</button>
+        <button id="g4" class="button" onclick="onClick(4)"></button>
     </div>
     <div class=" w3-quarter">
-        <button class="button" onclick="onClick(50,0,6)">Czasami lepiej studenta nie przepuścić, to dla jego dobra, żeby się nie męczył<br>Koszt: 50<br>+6/sek</button>
+        <button id="g5" class="button" onclick="onClick(5)"></button>
     </div>
     <div class=" w3-quarter">
-        <button class="button" onclick="onClick(150,0,20)">Brakuje komuś 0.003pkt do zdania? Każ powtarzać całe kolokwium<br>Koszt: 150<br>+20/sek</button>
+        <button id="g6" class="button" onclick="onClick(6)"></button>
     </div>
     <div class=" w3-quarter">
-        <button class="button" onclick="onClick(1000,0,150)">Odwołaj zajęcia i każ przerobić w domu<br>Koszt: 1000<br>+150/sek</button>
+        <button id="g7" class="button" onclick="onClick(7)"></button>
     </div>
 </div>
-
-
-
+<div class="w3-row ">
+    <div class="  w3-quarter">
+        <button id="g8" class="button" onclick="onClick(8)"></button>
+    </div>
+    <div class=" w3-quarter">
+        <button id="g9" class="button" onclick="onClick(9)"></button>
+    </div>
+    <div class=" w3-quarter">
+        <button id="g10" class="button" onclick="onClick(10)"></button>
+    </div>
+    <div class=" w3-quarter">
+        <button id="g11" class="button przedostatnie" onclick="onClick(11)"></button>
+    </div>
+</div>
+</div>
 </body>
 <script>
-    function onClick(a,i,j) {
-        if(a<=posiadane){
-            posiadane-=a;
-            increase(i,j);
-        }
-        update();
+    function ujeb(){
+        increase(naKlik);
     }
-    function increase( i, j){
+    function onClick(nCeny) {
+        if(ceny[nCeny]<=posiadane){
+        if(nCeny<10){
+            if(nCeny==0) prog++;
+                posiadane-=ceny[nCeny];
+                ceny[nCeny]=Math.ceil(ceny[nCeny]*1.1);
+                naKlik+=bonusNaKlik[nCeny];
+                naSek+=bonusNaSek[nCeny];
+                updateUjeb();
+                updateGuzik(nCeny);
+                update();
+        }
+        else if (nCeny==10){
+            if(!przedostatnieZrobione) {
+                naSek *= 2;
+                naKlik *= 2;
+                przedostatnieZrobione = true;
+                document.getElementById("g11").innerHTML = "Wróć za parę semestrów<br>Koszt: " + ceny[11];
+                document.getElementById("g10").classList.toggle('przedostatnie');
+                document.getElementById("g11").classList.toggle('przedostatnie');
+                update();
+                updateUjeb();
+            }
+        }
+        else if (nCeny==11){
+            if(przedostatnieZrobione){
+                alert("Gratuluję, jesteś aktualnie największym rakiem dla studentów 3. semestru, mam nadzieję, że jesteś z siebie dumny :)");
+            }
+        }
+        }
+    }
+    function updateGuzik(i){
+        var ind="g"+i;
+        if(i<10){
+            document.getElementById(ind).innerHTML=etykiety[i]+"<br>Koszt: "+ceny[i]+"<br> Bonus na sekundę: "+bonusNaSek[i]+"<br>Bonus na Klik: "+bonusNaKlik[i];
+        }
+        else if(i===10){
+            document.getElementById(ind).innerHTML=etykiety[i]+"<br>Koszt: "+ceny[i];
+        }
+        else if (i===11){
+            document.getElementById(ind).innerHTML=etykiety[i];
+        }
+    }
+    function increase(i){
         posiadane+=i;
         lacznie+=i;
-        naSek+=j;
+        update();
+    }
+    function updateUjeb(){
+        document.getElementById("ujeb").innerHTML="Ujeb studentów ("+naKlik+")";
     }
     function update() {
+        document.getElementById("prog").innerHTML="Aktualny próg zaliczenia: "+prog+"%";
         document.getElementById("cur").innerHTML="Niespożytkowane zasoby ujebanych studentów: "+posiadane;
         document.getElementById("max").innerHTML="Ujebani łącznie: "+lacznie;
         document.getElementById("sek").innerHTML="Ujebywani na sekundę: "+naSek;
     }
-
+    przedostatnieZrobione=false;
+    var prog=50;
+    var naKlik=1;
     var posiadane=0;
     var lacznie=0;
     var naSek=0;
+    var ceny=[50,300,600,2000,4000,7500,10000,20000,50000,200000,500000,750000];
+    var bonusNaSek=[1,2,3,5,7,10,12,15,18,25,0,0];
+    var bonusNaKlik=[0,1,2,3,4,5,7,9,11,15,0,0];
+    var etykiety=["","","","","","","","","","","","","","","",""]
+    etykiety[0]="Podnieś progi o 1%";
+    etykiety[1]="Nie przepuść studenta, to dla jego dobra, żeby się nie męczył";
+    etykiety[2]="Brakuje komuś 0.003pkt do zdania? Każ powtarzać całe kolokwium";
+    etykiety[3]="Odwołaj zajęcia i każ przerobić w domu";
+    etykiety[4]="Zrób poprowkę w dzień egzaminu";
+    etykiety[5]="Egzamin z samej teorii";
+    etykiety[6]="Przeznacz na egzamin godzinę, daj 40 min";
+    etykiety[7]="Spędź pół godziny tłumacząc dlaczego nie dasz 0.5pkt, zamiast je dać";
+    etykiety[8]="Napisz \"i reszta\" w zagadnieniach, niech się domyślają";
+    etykiety[9]="Nie zrób nic na ćwikach i wykładach wymagaj jakby wszystcy byli na Twoim poziomie";
+    etykiety[10]="Pozbądź się profesora W. żeby być tym, który ujebie najwięcej<br>(konieczne do następnego)<br>Podwój przyrosty";
+    etykiety[11]="???";
     update();
+    updateUjeb();
+    for(var i=0;i<15;i++)updateGuzik(i);
+
 
     var sekundnik = setInterval(myTimer, 1000);
 
