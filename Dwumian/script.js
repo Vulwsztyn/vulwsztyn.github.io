@@ -106,7 +106,7 @@ function init() {
     };
     var options2 = {
         chart: {
-            title: 'Adams-Bashfort'
+            title: 'Runge-Kutta'
         },
         width: 900,
         height: 500,
