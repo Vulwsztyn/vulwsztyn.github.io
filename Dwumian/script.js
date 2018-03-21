@@ -88,38 +88,51 @@ adamsuj(j){
 }
 
 function init() {
+    var ileChartow=8;
+
     let symulacja= new Simulation(5,0.12,5,4,5000);
     symulacja.runguj(4);
     symulacja.adamsuj(symulacja.iloscKrokow);
     symulacja.wypis();
-    var options = {
-        chart: {
-            title: 'Adams-Bashfort'
-        },
-        width: 900,
-        height: 500,
-        axes: {
-            x: {
-                0: {side: 'top'}
+
+    var data=[];
+    var options=[];
+    var chart=[];
+    for(let i=0;i<ileChartow;i++){
+         data[i] = new google.visualization.DataTable();
+         options[i] = {
+            chart: {
+                title: 'Adams-Bashfort łącznie'
+            },
+            width: 900,
+            height: 500,
+            axes: {
+                x: {
+                    0: {side: 'top'}
+                }
             }
-        }
-    };
-    var options2 = {
-        chart: {
-            title: 'Runge-Kutta'
-        },
-        width: 900,
-        height: 500,
-        axes: {
-            x: {
-                0: {side: 'top'}
-            }
-        }
-    };
-    var data = new google.visualization.DataTable();
-    var data2 = new google.visualization.DataTable();
-    let chart = new google.charts.Line(document.getElementById('Wykres1'));
-    let chart2 = new google.charts.Line(document.getElementById('Wykres2'));
+        };
+         let nazwa='Wykres'+i;
+
+        chart[i] = new google.charts.Line(document.getElementById(nazwa));
+    }
+
+    options[1].chart.title='Adams-Bashfort osobno 1';
+    options[2].chart.title='Adams-Bashfort osobno 2';
+    options[3].chart.title='Adams-Bashfort osobno 2 skala ta co w reszcie';
+    options[4].chart.title='Runge-Kutta łącznie';
+    options[5].chart.title='Runge-Kutta osobno 1';
+    options[6].chart.title='Runge-Kutta osobno 2';
+    options[7].chart.title='Runge-Kutta osobno 2 skala ta co w reszcie';
+    console.log(typeof(options[7].chart));
+    console.log(typeof(options[7].chart.title));
+    options[3].vAxis={};
+    options[7].vAxis={};
+    options[3].vAxis.viewWindow={};
+    options[7].vAxis.viewWindow={};
+    options[3].vAxis.viewWindow.max=parseInt(document.getElementById('CA0').value);
+    options[7].vAxis.viewWindow.max=parseInt(document.getElementById('CA0').value);
+
     let button = document.getElementById('but');
 
     function drawChart() {
@@ -129,10 +142,12 @@ function init() {
             function() {
                 button.disabled = false;
             });
-        console.log("adolf");
-        chart.draw(data, google.charts.Line.convertOptions(options));
-        chart2.draw(data2, google.charts.Line.convertOptions(options2));
+
+        for(let i=0;i<8;i++) {
+            chart[i].draw(data[i], google.charts.Line.convertOptions(options[i]));
+        }
     }
+    console.log("adolf5");
     function Klik(){
         let ca0 = parseInt(document.getElementById('CA0').value);
         let k = parseFloat(document.getElementById('k').value);
@@ -144,28 +159,58 @@ function init() {
         sym.runguj(4);
         sym.adamsuj(sym.iloscKrokow);
         sym2.runguj(sym.iloscKrokow);
-        data = new google.visualization.DataTable();
-        data.addColumn('number', 'Czas');
-        data.addColumn('number', 'CA1');
-        data.addColumn('number', 'CB1');
-        data.addColumn('number', 'CA2');
-        data.addColumn('number', 'CB2');
-        data2 = new google.visualization.DataTable();
-        data2.addColumn('number', 'Czas');
-        data2.addColumn('number', 'CA1');
-        data2.addColumn('number', 'CB1');
-        data2.addColumn('number', 'CA2');
-        data2.addColumn('number', 'CB2');
+        for(let i=0;i<2;i++){
+            data[ileChartow/2*i] = new google.visualization.DataTable();
+            data[ileChartow/2*i].addColumn('number', 'Czas');
+            data[ileChartow/2*i].addColumn('number', 'CA1');
+            data[ileChartow/2*i].addColumn('number', 'CB1');
+            data[ileChartow/2*i].addColumn('number', 'CA2');
+            data[ileChartow/2*i].addColumn('number', 'CB2');
+
+            data[ileChartow/2*i+1] = new google.visualization.DataTable();
+            data[ileChartow/2*i+1].addColumn('number', 'Czas');
+            data[ileChartow/2*i+1].addColumn('number', 'CA1');
+            data[ileChartow/2*i+1].addColumn('number', 'CB1');
+
+            data[ileChartow/2*i+2] = new google.visualization.DataTable();
+            data[ileChartow/2*i+2].addColumn('number', 'Czas');
+            data[ileChartow/2*i+2].addColumn('number', 'CA2');
+            data[ileChartow/2*i+2].addColumn('number', 'CB2');
+            data[ileChartow/2*i+3] = new google.visualization.DataTable();
+            data[ileChartow/2*i+3].addColumn('number', 'Czas');
+            data[ileChartow/2*i+3].addColumn('number', 'CA2');
+            data[ileChartow/2*i+3].addColumn('number', 'CB2');
+        }
+
+
         for(let i=0; i<sym.iloscKrokow; i++) {
-            data.addRows([
+            data[0].addRows([
                 [i * sym.h, sym.CA[0][i], sym.CB[0][i], sym.CA[1][i], sym.CB[1][i]]
             ]);
-            data2.addRows([
+            data[1].addRows([
+                [i * sym.h, sym.CA[0][i], sym.CB[0][i]]
+            ]);
+            data[2].addRows([
+                [i * sym.h, sym.CA[1][i], sym.CB[1][i]]
+            ]);
+            data[3].addRows([
+                [i * sym.h, sym.CA[1][i], sym.CB[1][i]]
+            ]);
+            data[4].addRows([
                 [i * sym2.h, sym2.CA[0][i], sym2.CB[0][i], sym2.CA[1][i], sym2.CB[1][i]]
+            ]);
+            data[5].addRows([
+                [i * sym.h, sym.CA[0][i], sym.CB[0][i]]
+            ]);
+            data[6].addRows([
+                [i * sym.h,sym.CA[1][i], sym.CB[1][i]]
+            ]);
+            data[7].addRows([
+                [i * sym.h,sym.CA[1][i], sym.CB[1][i]]
             ]);
         }
         drawChart();
-    };
+    }
     button.onclick = Klik();
     Klik();
 }
