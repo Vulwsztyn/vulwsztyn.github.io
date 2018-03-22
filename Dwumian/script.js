@@ -137,14 +137,7 @@ function init() {
     let button = document.getElementById('but');
 
     function drawChart() {
-        // Disabling the button while the chart is drawing.
-        button.disabled = true;
-        google.visualization.events.addListener(chart[0], 'ready',
-            function() {
-                button.disabled = false;
-            });
-
-        for(let i=0;i<8;i++) {
+       for(let i=0;i<8;i++) {
             chart[i].draw(data[i], google.charts.Line.convertOptions(options[i]));
         }
     }
