@@ -88,7 +88,7 @@ adamsuj(j){
 }
 
 function init() {
-    var ileChartow=10;
+    var ileChartow=8;
 
     let symulacja= new Simulation(5,0.12,5,4,5000);
     symulacja.runguj(4);
@@ -137,7 +137,7 @@ function init() {
     let button = document.getElementById('but');
 
     function drawChart() {
-       for(let i=0;i<8;i++) {
+       for(let i=0;i<ileChartow;i++) {
             chart[i].draw(data[i], google.charts.Line.convertOptions(options[i]));
         }
     }
