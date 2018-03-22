@@ -146,10 +146,10 @@ function init() {
     }
     function Klik(){
         console.log("adolf");
-        let ca0 = parseInt(document.getElementById('CA0').value);
+        let ca0 = parseFloat(document.getElementById('CA0').value);
         let k = parseFloat(document.getElementById('k').value);
-        let T = parseInt(document.getElementById('T').value);
-        let tau = parseInt(document.getElementById('tau').value);
+        let T = parseFloat(document.getElementById('T').value);
+        let tau = parseFloat(document.getElementById('tau').value);
         let iK = parseInt(document.getElementById('iloscKrokow').value);
         let sym= new Simulation(ca0,k,tau,T,iK);
         let sym2= new Simulation(ca0,k,tau,T,iK);
