@@ -88,7 +88,7 @@ adamsuj(j){
 }
 
 function init() {
-    var ileChartow=8;
+    var ileChartow=10;
 
     let symulacja= new Simulation(5,0.12,5,4,5000);
     symulacja.runguj(4);
@@ -139,7 +139,7 @@ function init() {
     function drawChart() {
         // Disabling the button while the chart is drawing.
         button.disabled = true;
-        google.visualization.events.addListener(chart, 'ready',
+        google.visualization.events.addListener(chart[0], 'ready',
             function() {
                 button.disabled = false;
             });
@@ -182,6 +182,11 @@ function init() {
             data[ileChartow/2*i+3].addColumn('number', opisOsiX);
             data[ileChartow/2*i+3].addColumn('number', 'CA2');
             data[ileChartow/2*i+3].addColumn('number', 'CB2');
+
+            data[8+i] = new google.visualization.DataTable();
+            data[8+i].addColumn('number', opisOsiX);
+            data[8+i].addColumn('number', 'CA2');
+            data[8+i].addColumn('number', 'CB2');
         }
 
 
