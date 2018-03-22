@@ -90,7 +90,7 @@ adamsuj(j){
 function init() {
     var ileChartow=8;
 
-    let symulacja= new Simulation(5,0.12,5,4,5000);
+    let symulacja= new Simulation(5,0.12,5,4,100);
     symulacja.runguj(4);
     symulacja.adamsuj(symulacja.iloscKrokow);
     symulacja.wypis();
@@ -111,6 +111,10 @@ function init() {
                     0: {side: 'bottom'}
                 }
             },
+             animation:{
+                 duration: 1000,
+                 easing: 'out',
+             },
              vAxis: {
                  title: 'Stężenie [mol/litr]'
              }
@@ -127,22 +131,21 @@ function init() {
     options[5].chart.title='Runge-Kutta osobno 1';
     options[6].chart.title='Runge-Kutta osobno 2';
     options[7].chart.title='Runge-Kutta osobno 2 skala ta co w reszcie';
-    console.log(typeof(options[7].chart));
-    console.log(typeof(options[7].chart.title));
     options[3].vAxis.viewWindow={};
     options[7].vAxis.viewWindow={};
     options[3].vAxis.viewWindow.max=parseInt(document.getElementById('CA0').value);
     options[7].vAxis.viewWindow.max=parseInt(document.getElementById('CA0').value);
 
-    let button = document.getElementById('but');
+    var button = document.getElementById('but');
 
     function drawChart() {
+
        for(let i=0;i<ileChartow;i++) {
             chart[i].draw(data[i], google.charts.Line.convertOptions(options[i]));
         }
     }
-    console.log("adolf5");
     function Klik(){
+        console.log("adolf");
         let ca0 = parseInt(document.getElementById('CA0').value);
         let k = parseFloat(document.getElementById('k').value);
         let T = parseInt(document.getElementById('T').value);
@@ -154,34 +157,26 @@ function init() {
         sym.adamsuj(sym.iloscKrokow);
         sym2.runguj(sym.iloscKrokow);
         let  opisOsiX="Czas [min]";
+        for(let i=0;i<ileChartow;i++) {
+            data[i] = new google.visualization.DataTable();
+            data[i].addColumn('number', opisOsiX);
+        }
         for(let i=0;i<2;i++){
-            data[ileChartow/2*i] = new google.visualization.DataTable();
-            data[ileChartow/2*i].addColumn('number', opisOsiX);
             data[ileChartow/2*i].addColumn('number', 'CA1');
             data[ileChartow/2*i].addColumn('number', 'CB1');
             data[ileChartow/2*i].addColumn('number', 'CA2');
             data[ileChartow/2*i].addColumn('number', 'CB2');
 
-            data[ileChartow/2*i+1] = new google.visualization.DataTable();
-            data[ileChartow/2*i+1].addColumn('number', opisOsiX);
             data[ileChartow/2*i+1].addColumn('number', 'CA1');
             data[ileChartow/2*i+1].addColumn('number', 'CB1');
 
-            data[ileChartow/2*i+2] = new google.visualization.DataTable();
-            data[ileChartow/2*i+2].addColumn('number', opisOsiX);
             data[ileChartow/2*i+2].addColumn('number', 'CA2');
             data[ileChartow/2*i+2].addColumn('number', 'CB2');
-            data[ileChartow/2*i+3] = new google.visualization.DataTable();
-            data[ileChartow/2*i+3].addColumn('number', opisOsiX);
+
             data[ileChartow/2*i+3].addColumn('number', 'CA2');
             data[ileChartow/2*i+3].addColumn('number', 'CB2');
 
-            data[8+i] = new google.visualization.DataTable();
-            data[8+i].addColumn('number', opisOsiX);
-            data[8+i].addColumn('number', 'CA2');
-            data[8+i].addColumn('number', 'CB2');
         }
-
 
         for(let i=0; i<sym.iloscKrokow; i++) {
             data[0].addRows([
@@ -211,9 +206,11 @@ function init() {
         }
         drawChart();
     }
-    button.onclick = Klik();
-    Klik();
+    button.onclick = function() {
+        Klik();
+    };
 }
 google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(init);
+
 
