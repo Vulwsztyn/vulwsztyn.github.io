@@ -108,9 +108,12 @@ function init() {
             height: 500,
             axes: {
                 x: {
-                    0: {side: 'top'}
+                    0: {side: 'bottom'}
                 }
-            }
+            },
+             vAxis: {
+                 title: 'Stężenie [mol/litr]'
+             }
         };
          let nazwa='Wykres'+i;
 
@@ -126,8 +129,6 @@ function init() {
     options[7].chart.title='Runge-Kutta osobno 2 skala ta co w reszcie';
     console.log(typeof(options[7].chart));
     console.log(typeof(options[7].chart.title));
-    options[3].vAxis={};
-    options[7].vAxis={};
     options[3].vAxis.viewWindow={};
     options[7].vAxis.viewWindow={};
     options[3].vAxis.viewWindow.max=parseInt(document.getElementById('CA0').value);
@@ -159,25 +160,26 @@ function init() {
         sym.runguj(4);
         sym.adamsuj(sym.iloscKrokow);
         sym2.runguj(sym.iloscKrokow);
+        let  opisOsiX="Czas [min]";
         for(let i=0;i<2;i++){
             data[ileChartow/2*i] = new google.visualization.DataTable();
-            data[ileChartow/2*i].addColumn('number', 'Czas');
+            data[ileChartow/2*i].addColumn('number', opisOsiX);
             data[ileChartow/2*i].addColumn('number', 'CA1');
             data[ileChartow/2*i].addColumn('number', 'CB1');
             data[ileChartow/2*i].addColumn('number', 'CA2');
             data[ileChartow/2*i].addColumn('number', 'CB2');
 
             data[ileChartow/2*i+1] = new google.visualization.DataTable();
-            data[ileChartow/2*i+1].addColumn('number', 'Czas');
+            data[ileChartow/2*i+1].addColumn('number', opisOsiX);
             data[ileChartow/2*i+1].addColumn('number', 'CA1');
             data[ileChartow/2*i+1].addColumn('number', 'CB1');
 
             data[ileChartow/2*i+2] = new google.visualization.DataTable();
-            data[ileChartow/2*i+2].addColumn('number', 'Czas');
+            data[ileChartow/2*i+2].addColumn('number', opisOsiX);
             data[ileChartow/2*i+2].addColumn('number', 'CA2');
             data[ileChartow/2*i+2].addColumn('number', 'CB2');
             data[ileChartow/2*i+3] = new google.visualization.DataTable();
-            data[ileChartow/2*i+3].addColumn('number', 'Czas');
+            data[ileChartow/2*i+3].addColumn('number', opisOsiX);
             data[ileChartow/2*i+3].addColumn('number', 'CA2');
             data[ileChartow/2*i+3].addColumn('number', 'CB2');
         }
