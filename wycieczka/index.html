@@ -29,7 +29,7 @@
 <body>
 
 <!-- Links (sit on top) -->
-<div class="w3-top">
+<div id="navBar" class="w3-top">
     <div class="w3-row w3-padding w3-black">
         <div style="width:12.5%; float:left;">
             <a href="#day0" class="w3-button w3-block w3-black">PRZEJAZD</a>
@@ -55,6 +55,7 @@
     </div>
 </div>
 
+
 <!-- Header with image -->
 <header class="bgimg w3-display-container " id="home">
     <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
@@ -74,13 +75,17 @@
     <!-- About Container -->
     <div class="w3-container" id="day0">
         <div class="w3-content" style="max-width:1000px">
+            <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">BILETY</span></h5>
+            <div class="w3-panel w3-leftbar">
+                <a href="pdf/Zuza.pdf" target="_blank" >Zuzy</a>
+                <br>
+                <a href="pdf/Marysiowie.pdf" target="_blank" >Marysiowy</a>
+            </div>
             <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">PRZEJAZD</span></h5>
             <p><b>Pierwsza część:</b></p>
             <p>wtorek 22.18 - środa 5.29</p>
             <p>pocionk IC 83194</p>
-            <div class="w3-panel w3-leftbar">
-                <p>67zł za normalny, 32.83(49%- to chyba studencki), 45.962(2*0.49*0.7)</p>
-            </div>
+
             <img src="screens/day0.png" style="width:100%;max-width:1000px" class="w3-margin-top">
             <p><b>Druga część:</b></p>
             <p>6:45-7:54 autobus do Mszany Dolnej</p>
@@ -89,7 +94,8 @@
             <p><b>W Mszanie Dolnej chiałbym iść na Mszę:</b></p>
             <p>6:30, 8:00, 9:30, 11:00, 15:00, 18:00 (VII-VIII o 19:00)</p>
             <a href="http://parafiamszanadolna.pl/rozklad-nabozenstw/" target="_blank" class="w3-button w3-block w3-black">MSZE</a>
-            https://www.busy-krk.pl/szczawnica-krakow/
+            <br>
+            <a href="https://www.busy-krk.pl/mszana-dolna-krakow/" target="_blank" class="w3-button w3-block w3-black">BUSY</a>
             <img src="screens/day00.png" style="width:100%;max-width:1000px" class="w3-margin-top">
         </div>
     </div>
@@ -107,6 +113,7 @@
             <a href="https://mapa-turystyczna.pl/route/69ma" target="_blank" class="w3-button w3-block w3-black">LINK</a>
             <img src="screens/day1.png" style="width:100%;max-width:1000px" class="w3-margin-top">
 
+    </div>
     </div>
 
     <div class="w3-container" id="day2">
@@ -155,6 +162,7 @@
             </ul>
 
         </div>
+    </div>
 
         <div class="w3-container" id="day3">
             <div class="w3-content" style="max-width:1000px">
@@ -170,7 +178,7 @@
                         <img src="screens/day3.png" style="width:100%;max-width:1000px" class="w3-margin-top">
                     </li>
                     <li>
-                        <p>retardowo długa (jako upgrade krótkiej):</p>
+                        <p>krótsza:</p>
                         <p>4:26h</p>
                         <p>13.7km</p>
                         <p>up: 758m</p>
@@ -182,15 +190,23 @@
 
                 </p>
         </div>
+        </div>
 
         <div class="w3-container" id="day4">
             <div class="w3-content" style="max-width:1000px">
                 <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Day 4 - sobota</span></h5>
-                <p>do <a href="http://www.trzykorony.pl/schronisko" target="_blank">Schroniska PTTK Trzy Korony</a><br>5:26h<br>17.3km<br>up: 616m<br>down: 1357m<br>15 zł za nocleg (ale recepcja jest otwarta 7:30-21:00, czyli możemy próbować kombinować)</p>
+                <p>do Krościenka nad Dunajcem<br>2:33h<br>9.7km<br>up: 40m<br>down: 831m</p>
 
-                <a href="https://mapa-turystyczna.pl/route/697r" target="_blank" class="w3-button w3-block w3-black">LINK</a>
-                <img src="screens/day4.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+                <a href="https://mapa-turystyczna.pl/route/zfhn" target="_blank" class="w3-button w3-block w3-black">LINK</a>
+                <img src="screens/day70.png" style="width:100%;max-width:1000px" class="w3-margin-top">
                 </p>
+                <br>
+                <p>Spacerek po Pieninach (przykład)<br>7:44h<br>23.1km<br>up: 1247m<br>down: 1247m</p>
+
+                <a href="https://mapa-turystyczna.pl/route/zcpo" target="_blank" class="w3-button w3-block w3-black">LINK</a>
+                <img src="screens/day71.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+                </p>
+        </div>
         </div>
 
         <div class="w3-container" id="day5">
@@ -202,6 +218,7 @@
                 <img src="screens/day5.png" style="width:100%;max-width:1000px" class="w3-margin-top">
                 </p>
         </div>
+        </div>
 
         <div class="w3-container" id="day6">
             <div class="w3-content" style="max-width:1000px">
@@ -212,8 +229,10 @@
                 <img src="screens/day66.png" style="width:100%;max-width:1000px" class="w3-margin-top">
                 </p>
         </div>
+        </div>
     <!-- End page content -->
 </div>
+
 
 <!-- Footer -->
 <footer class="w3-center w3-light-grey w3-padding-12 w3-large">
@@ -253,7 +272,7 @@
         evt.currentTarget.firstElementChild.className += " w3-dark-grey";
     }
     document.getElementById("myLink").click();
-</script>
 
+</script>
 </body>
 </html>
