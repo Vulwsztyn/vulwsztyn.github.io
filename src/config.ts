@@ -63,11 +63,6 @@ export const profileConfig: ProfileConfig = {
       url: 'mailto:artur.mostowski@protonmail.com',
     },
     {
-      name: 'Discord',
-      icon: 'ic:baseline-discord',
-      url: 'https://discordapp.com/users/116569757360062468',
-    },
-    {
       name: 'GitHub',
       icon: 'fa6-brands:github',
       url: 'https://github.com/Vulwsztyn',
