@@ -1,10 +1,10 @@
 ---
 title: My experience writing a CV thus far
 published: 2021-02-21
-description: ''
+description: Post describing my experience with writing CV as of Feb 2021
 image: ''
-tags: []
-category: ''
+tags: [CV, career]
+category: 'CV'
 draft: false 
 ---
 
