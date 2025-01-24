@@ -63,6 +63,21 @@ export const profileConfig: ProfileConfig = {
       url: 'mailto:artur.mostowski@protonmail.com',
     },
     {
+      name: 'Mastdon',
+      icon: 'mdi:mastodon',
+      url: 'https://mastodon.social/@Vulwsztyn',
+    },
+    {
+      name: 'Lemmy - programming.dev',
+      icon: 'simple-icons:lemmy',
+      url: 'https://programming.dev/u/Vulwsztyn',
+    },
+    {
+      name: 'BlueSky',
+      icon: 'ph:butterfly-light',
+      url: 'https://bsky.app/profile/vulwsztyn.bsky.social',
+    },
+    {
       name: 'GitHub',
       icon: 'fa6-brands:github',
       url: 'https://github.com/Vulwsztyn',
