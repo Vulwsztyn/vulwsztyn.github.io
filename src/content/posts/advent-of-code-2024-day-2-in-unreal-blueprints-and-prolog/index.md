@@ -1,5 +1,5 @@
 ---
-title: Advent of Code 2024 day 2 in Unreal blueaprints & Prolog
+title: Advent of Code 2024 day 2 in Unreal blueprints & Prolog
 published: 2025-01-23
 description: 'My solution to day 2 of 2024 Advent of Code in Unreal blueprints'
 image: 'Check_Array_With_Mistake.png'
@@ -40,24 +40,38 @@ What follows are the screenshots including the recreation of the code in that re
 For prolog I took the suboptimal route of using code reading from file straight from stackoverflow answer so instead of array of ints I had an array of char, so I needed to parse that. Because I didn't need to deal with the wacky mathematics of parsing from right to left (i.e. keeping track of what power of 10 should current digit be multiplied by) I needed to use `append/3` predicate instead of native prolog split of `[Head|Tail]`:
 ```prolog
 parse_line([],[0]).
-parse_line(List, ParsedList) :- 
+parse_line(List, Result) :- 
     append(Init, [' '], List),
-    parse_line(Init, ParsedList1),
-    append(ParsedList1, [0], ParsedList),
+    parse_line(Init, PartialResult),
+    append(PartialResult, [0], Result),
     !.
-parse_line(List, ParsedList) :- 
+parse_line(List, Result) :- 
     append(Init, [Last], List),
-    parse_line(Init, Parsed1),
-    append(InitP, [LastP], Parsed1),
+    parse_line(Init, PartialResult),
+    append(InitP, [LastP], PartialResult),
     char_code(Last, Code),
     NewLastP is LastP*10+Code-48,
-    append(InitP, [NewLastP], ParsedList), 
+    append(InitP, [NewLastP], Result), 
     !.
 
 diff_within_range(X, Y) :-
     AbsDiff is abs(X - Y),  
     AbsDiff > 0,            
     AbsDiff < 4. 
+```
+
+the `parse_line/2` predicate is equivalent to the python code:
+
+```python
+def parse_line(line: str) -> list[int]:
+    if not line:
+        return [0]
+    if line[-1] == " ":
+        return parse_line(line[:-1]) + [0]
+    partial_result = parse_line(line[:-1])
+    init = partial_result[:-1]
+    last = partial_result[-1]
+    return init + [last * 10 + int(line[-1])]
 ```
 
 # Part 1
@@ -79,6 +93,22 @@ check_report_helper([H1,H2|T], IsIncreasing) :-
 check_report([H1,H2|T]) :- 
     (H1 < H2 -> Order = true ; Order = false), 
     check_report_helper([H1,H2|T], Order).
+```
+
+in python:
+```python
+def is_array_ok_helper(arr, i, prev_i, is_increasing):
+    if i >= len(arr):
+        return True
+    if not within_bounds(arr[i], arr[prev_i]) or not consistent_with_increasing(
+        arr[i], arr[prev_i], is_increasing
+    ):
+        return False
+    return is_array_ok_helper(arr, i + 1, i, is_increasing)
+
+
+def is_array_ok(arr):
+    return is_array_ok_helper(arr, 1, 0, arr[1] > arr[0])
 ```
 
 # Part 2
@@ -139,7 +169,43 @@ Here the helper function checks all the scenarios:
     - If the current pair of indexes were `0` & `1` it is checked if report without either of those would be safe with recalculation of `IsIncreasing`
     - If the current pair of indexes were `1` & `2` it is checked if removal of element indexed `0`, `1`, or `2` would result in a safe report - the former two cases with recalculation of `IsIncreasing`, and check whether the pair of 1st elements of the array (under indexes `1` & `2` and `0` & `2` respectively) has a difference within bounds
     - otherwise it is checked if removal of either current or previous element would result in a safe report - without `IsIncreasing` recalculation
-        
+
+the blueprint code in equivalent to python:
+
+```python
+def is_array_ok_with_mistake_helper(arr, i, prev_i, is_increasing):
+    if i >= len(arr) - 1:
+        return True
+    is_ok = within_bounds(arr[i], arr[prev_i]) and consistent_with_increasing(
+        arr[i], arr[prev_i], is_increasing
+    )
+    if is_ok:
+        return is_array_ok_with_mistake_helper(arr, i + 1, i, is_increasing)
+    if i == 1:
+        return is_array_ok_helper(
+            arr, 2, 0, arr[2] > arr[0]
+        ) or is_array_ok_helper(arr, 2, 1, arr[2] > arr[1])
+    if i == 2:
+        return (
+            is_array_ok_helper(arr, 3, 1, is_increasing)
+            or (
+                within_bounds(arr[2], arr[0])
+                and is_array_ok_helper(arr, 3, 2, arr[2] > arr[0])
+            )
+            or (
+                within_bounds(arr[2], arr[1])
+                and is_array_ok_helper(arr, 3, 2, arr[2] > arr[1])
+            )
+        )
+    return is_array_ok_helper(
+        arr, i + 1, prev_i, is_increasing
+    ) or is_array_ok_helper(arr, i, prev_i - 1, is_increasing)
+
+
+def is_array_ok_with_mistake(arr):
+    return is_array_ok_with_mistake_helper(arr, 1, 0, arr[1] > arr[0])
+```
+
 # Connecting in all
 
 - Main Loop
@@ -168,7 +234,6 @@ check_reports_with_mistake([_|T],X) :- check_reports_with_mistake(T,X).
 
 main :- phrase_from_file(lines(Lines), 'test.txt'), 
     parse(Lines, Parsed),
-    writeln(Parsed),
     check_reports(Parsed, NumberOfOk),
     writeln(NumberOfOk),
     check_reports_with_mistake(Parsed, NumberOfOkWithMistake),
