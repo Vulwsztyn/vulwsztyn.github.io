@@ -5,7 +5,7 @@ description: Post describing my experience with writing CV as of Feb 2021
 image: ''
 tags: [CV, career]
 category: 'CV'
-draft: false 
+draft: true 
 ---
 
 # Contents

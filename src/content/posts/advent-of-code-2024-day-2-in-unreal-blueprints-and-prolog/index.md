@@ -5,7 +5,7 @@ description: 'My solution to day 2 of 2024 Advent of Code in Unreal blueprints'
 image: 'Check_Array_With_Mistake.png'
 tags: [Advent-of-Code, Unreal, Unholy]
 category: 'Advent-of-Code'
-draft: false
+draft: true
 ---
 :::warning
 Potential spoilers regarding part 2 of the aforementioned AoC puzzle.
